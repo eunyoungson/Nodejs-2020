@@ -1,0 +1,23 @@
+{
+  "name": "basic",
+  "version": "1.0.0",
+  "description": "빅데이터 과정을 위한 nodejs 강좌",
+  "main": "01_hello.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eunyoungson/Nodejs-2020.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/eunyoungson/Nodejs-2020/issues"
+  },
+  "homepage": "https://github.com/eunyoungson/Nodejs-2020#readme",
+  "dependencies": {
+    "moment": "^2.28.0",
+    "moment-timezone": "^0.5.31"
+  }
+}

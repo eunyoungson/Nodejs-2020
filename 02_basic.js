@@ -27,6 +27,7 @@ console.log(Number('273'));
 console.log(Number(true));
 console.log(Number('52.7'));
 
+
 console.log(parseInt('273'));
 console.log(parseInt(true));
 console.log(parseInt('52.7'));
