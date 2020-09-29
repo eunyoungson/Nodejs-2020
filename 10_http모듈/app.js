@@ -8,7 +8,7 @@ const template =require('./view/templete')
  http.createServer((req,res) =>{  
     let pathname = url.parse(req.url).pathname;
     let query = url.parse(req.url, true).query;
-    console.log(pathname,query.id);
+    let body ;
     switch(pathname) {
         case '/':
             if (query.id === undefined) {   
@@ -33,8 +33,109 @@ const template =require('./view/templete')
                     
                 });
             }           
+            break; 
+        case '/create':
+            fs.readdir('data',function(error, filelist){                    
+                let list =template.listGen(filelist);
+                let control = template.buttonGen();               
+                let content= template.createForm();   
+             
+                let html = view.index('글 생성',list,content,control);
+                res.end(html);
+                              
+            });
+            break;
+        case '/create_proc':
+             body ='';
+            req.on('data', function(data){
+                body += data;
+            })
+           
+            req.on('end', function() {
+                let param =qs.parse(body); 
+                        
+               // console.log(param.subject, param.description);
+               let filepath = 'data/'+param.subject + '.txt';
+               fs.writeFile(filepath, param.description,error=>{
+                    res.writeHead(302, 
+                     {'Location':`/?id=${param.subject}`});
+                     res.end();
+               });
+       
+            });
             break;
 
+        case '/delete':
+                fs.readdir('data',function(error, filelist){                    
+                    let list =template.listGen(filelist);
+                    let control = template.buttonGen();               
+                    let content= template.deleteForm(query.id);      
+                    let html = view.index('글 삭제',list,content,control);
+                    res.end(html);
+                    console.log(content);
+                                  
+                });
+                break;
+        case '/delate_proc': 
+            body ='';
+            req.on('data', function(data){
+                body += data;
+            })
+            
+            req.on('end', function() {
+                let param =qs.parse(body);    
+                console.log(param);                
+                let filepath = 'data/'+param.subject + '.txt';               
+                console.log(filepath);
+                fs.unlink(filepath, error=>{
+                    res.writeHead(302, 
+                        {'Location':'/'});
+                        res.end();
+                });               
+            });
+            break;
+        case '/update':
+             fs.readdir('data',function(error, filelist){                    
+                    let list =template.listGen(filelist);
+                    let title = query.id ;     
+                    let control = template.buttonGen();               
+                    let filename ='data/' + title + '.txt';
+                    fs.readFile(filename,'utf8',(error,buffer) => {
+                        let content = template.updateForm(title,buffer)
+                        let html = view.index(`${title}수정`,list,buffer,control);
+                        res.end(html);
+                    })                                                                      
+            });
+            break;
+        case '/update_proc':
+            body ='';
+            req.on('data', function(data){
+                body += data;
+            })
+            
+            req.on('end', function() {
+                let param =qs.parse(body); 
+                        
+                // console.log(param.original, param.subject, param.description);
+                let filepath = 'data/'+param.original + '.txt';
+                fs.writeFile(filepath, param.description,error=>{
+                    if (param.original !== subject) {
+                            fs.rename(filepath, `data/${param.subject}.txt`, error => {
+                                res.writeHead(302, 
+                                    {'Location':`/?id=${param.subject}`});
+                                    res.end();   
+                            });
+                    } else {
+                        res.writeHead(302, 
+                            {'Location':`/?id=${param.subject}`});
+                            res.end();
+                    }
+                  
+                });
+        
+            });
+            break;
+        
         default:
             res.writeHead(404);
             res.end();

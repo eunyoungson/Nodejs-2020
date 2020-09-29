@@ -16,18 +16,72 @@ module.exports ={
     buttonGen: function(title) {
         if (title === undefined) {
             return `
-            <button onclick="location.href='/creat'">추가</button>
+            <button onclick="location.href='/create'">추가</button>
             <button >수정</button>
             <button >삭제</button>
             `;
         } else {
             return `
-            <button onclick="location.href='/creat'">추가</button>
+            <button onclick="location.href='/create'">추가</button>
             <button onclick="location.href='/update?id=${title}'">수정</button>
             <button onclick="location.href='/delete?id=${title}'">삭제</button>
             `;
         }
        
+    },
+    createForm: function() {
+        return `
+        <form action="/create_proc" method="POST" >
+        <table>
+            <tr>
+                <td><label>제목</label></td>
+                <td><input type="text" name="subject" ></td>
+            </tr>
+            <tr>
+                <td><label>내용</label></td>
+                <td><textarea type="text" name="description" cols="40" rows="5"></textarea></td>
+            </tr>
+            <tr>
+                <td colspan ="2" style="text-align: center"><input type="submit" value="생성"></td>
+                
+            </tr>
+
+        </table>
+        
+    </form>
+    `;
+    },
+    deleteForm: function(subject) {
+        return `
+        ${subject} 을/를 삭제하시겠습니까?
+        <form action="/delete_proc" method="POST" >
+            <input type="hidden" name="subject" value="${subject}">
+             <input type="submit" value="삭제">
+        </form>
+    `;
+    },
+    updateForm : function(subject, description) {
+        return `
+        <form action="/update_proc" method="POST" >
+        <input type="text" name="original" value="${subject} >
+        <table>
+            <tr>
+                <td><label>제목</label></td>
+                <td><input type="text" name="subject" value="${subject} ></td>
+            </tr>
+            <tr>
+                <td><label>내용</label></td>
+                <td><textarea type="text" name="description" cols="40" rows="5" >${description}</textarea></td>
+            </tr>
+            <tr>
+                <td colspan ="2" style="text-align: center"><input type="submit" value="생성"></td>
+                
+            </tr>
+
+        </table>
+        
+    </form>
+    `;
     }
 }
 
