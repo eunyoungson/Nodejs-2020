@@ -5,3 +5,9 @@ try {
     console.log(e.message) ;
 }
 console.log('프로그램 정상 종료');
+
+//예외발생 형식
+/* try {
+}   catch (exception){
+    console.log( );    
+} */

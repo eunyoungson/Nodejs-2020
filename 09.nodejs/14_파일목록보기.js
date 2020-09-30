@@ -1,13 +1,13 @@
 //디렉토리에 있는 파일 목록 알아내기
 
-/* const fs = require('fs');
+ /* const fs = require('fs');
 fs.readdir('tmp',function(e,files){
     for(let file of files) {
         let filename = 'tmp/' + file ;
         let stat = fs.statSync('tmp/' + file); //파일사이즈 구하는거
         console.log(file, '\t', stat.size);
     }
-}); */
+});  */
 
 const fs = require('fs');
 /* fs.readdir('tmp',function(e,files){
