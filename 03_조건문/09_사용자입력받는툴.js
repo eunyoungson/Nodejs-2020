@@ -9,8 +9,8 @@ rl.prompt();
    
 rl.on('line', function(buf) {
  //입력을 받아서 처리하는 로직
-/* let score = parseInt(buf);
-let grade;
+ let score = parseInt(buf);
+/*let grade;
     if (  score>= 90) {
        console.log( grade= 'A');
     } else if ( score >= 80 ){
@@ -22,6 +22,7 @@ let grade;
     } else   {
         console.log( grade= 'F');
     } */
+    
     console.log(/* `성적: ${score}, 학점 : ${grade}` */) ;
     rl.close();
 }); 
