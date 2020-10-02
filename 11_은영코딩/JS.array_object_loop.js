@@ -21,3 +21,11 @@ for(let n in roles) {  //n 자리에 것을 콘솔로그하면 key값이 나온�
     console.log('objectkey', n, 'value',roles[n]);
     console.log('value',roles[n]);
 }  // roles[n] key에 대한 정보값을 가져온다.
+// n ,roles[n] 
+/* 결과>
+objectkey programmer value son
+value son
+objectkey designer value Park
+value Park
+objectkey manager value choi
+value choi */
