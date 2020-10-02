@@ -4,14 +4,14 @@ let person = new Array('john' , 'marry');
 console.log(cars, person);
 
 console.log(cars.length, person.length);
-cars.sort();
+cars.sort(); //sort 메소드
 console.log(cars);
 
 //맨 마지막 엘리먼트
 let fruits = ["Banana", "Orange", "Apple", "Mango"];
-console.log(fruits[fruits.length-1]);
+console.log(fruits[fruits.length-1]); //파이썬에서는 list[-1]
 
-
+//반복문에서 html 리스트 작성하기
 let html = '';
 html += '<ul>\n';
 for (let fruit of fruits) {
@@ -21,7 +21,7 @@ html += '</ul>\n';
 console.log(html)
 
 fruits[fruits.length] ='cherry';
-console.log(fruits) ;//체리가 추가됨
+console.log(fruits) ;//체리가 추가됨, push와 똑같다.
 
 fruits[fruits.length] ='cherry';
 console.log(fruits.join(',')) ; //어레이를 스트링 형식으로 바꿀때
@@ -44,7 +44,7 @@ fruits = ["Banana", "Orange", "Apple", "Mango"];
 let spliceitem = fruits.splice(2,1);
 console.log(spliceitem, fruits);
 
-console.log(cars.concat(fruits));
+console.log(cars.concat(fruits)); //어레이끼리의 합성
 
 let citrus = fruits.slice(2);
 console.log(citrus);
