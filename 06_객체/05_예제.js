@@ -8,9 +8,9 @@ let cart = [
         quntitiy : 4   
     }
 ];
-
+//카트의 합계 --> 반복문 필요
 console.log(cart[0].product.price);
-let sum = 0;
+let sum = 0;  //초기화 하고..
 for (let item of cart) {
     sum += item.product.price* item.quntitiy ;
 }

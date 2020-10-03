@@ -17,5 +17,6 @@ let cart = [
 //JSON 으로 만들기
 
 /* console.log(JSON.stringify(cart));
+치약의 단가를 알고싶을때
 console.log(cart[0].product.price); */
 
