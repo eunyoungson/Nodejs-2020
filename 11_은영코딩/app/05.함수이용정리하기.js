@@ -50,8 +50,8 @@ let app =http.createServer(function(req,res){
                 let description ='Hello node.js';
               
                 let list = templatelist(filelist); //여기도 변화됨!!!
-
                 let templete = templateHTML(title,list, `<hi>${queryData.id}</hi>${description}`)
+                
                 response.writeHead(200);
                 response.end(templete);
             })
