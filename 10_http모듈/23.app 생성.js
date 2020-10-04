@@ -37,8 +37,9 @@ const template =require('./view/templete')
         case '/create':
             fs.readdir('data',function(error, filelist){                    
                 let list =template.listGen(filelist);
+                let content= template.createForm();  
                 let control = template.buttonGen();               
-                let content= template.createForm();      
+                    
                 let html = view.index('글 생성',list,content,control);
                 res.end(html);
                               
@@ -56,9 +57,8 @@ const template =require('./view/templete')
                // console.log(param.subject, param.description);
                let filepath = 'data/'+param.subject + '.txt';
                fs.writeFile(filepath, param.description,error=>{
-                    res.writeHead(302, 
-                     {'Location':`/?id=${param.subject}`});
-                     res.end();
+                    res.writeHead(302,  {'Location':`/?id=${param.subject}`});          
+                    res.end();
                });
        
             });

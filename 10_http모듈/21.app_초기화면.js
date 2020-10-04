@@ -18,9 +18,9 @@ const view = require('./view/index');
                 let html = view.index(list);
                 res.end(html);
             });
-            fs.readFile('view/index.html', 'utf8',(error,html) => {
+           /*  fs.readFile('view/index.html', 'utf8',(error,html) => {
                 res.end(html);
-            });
+            }); */
                // let html2 = view2.text(text);
             /* fs.readFile('view/text.html', 'utf8',(error,html) => {
                 res.end(html2);
@@ -29,7 +29,7 @@ const view = require('./view/index');
 
         default:
             res.writeHead(404, {'content-Type' : 'text/html'});
-            res.end(html );
+            res.end( );
     
     }
  }).listen(3000,() =>{

@@ -15,6 +15,7 @@ const template =require('./view/templete')
                 fs.readdir('data',function(error, filelist){                    
                     let list =template.listGen(filelist);
                     let content = template.HOME_CONTENTS;
+                    content = content.replace(/\n/g,'<br>');
                     let control = template.buttonGen();
                     let html = view.index('web 기술', list, content,control);                  
                     res.end(html);
@@ -26,7 +27,7 @@ const template =require('./view/templete')
                     let title = query.id ;     
                     let control = template.buttonGen(title);               
                     let filename ='data/' + title + '.txt';
-                    fs.readFile(filename,'utf8',(error,buffer) => {
+                    fs.readFile(filepath,'utf8',(error,buffer) => {
                         let html = view.index(title,list,buffer,control);
                         res.end(html);
                     })
@@ -37,8 +38,9 @@ const template =require('./view/templete')
         case '/create':
             fs.readdir('data',function(error, filelist){                    
                 let list =template.listGen(filelist);
+                let content= template.createForm(); 
                 let control = template.buttonGen();               
-                let content= template.createForm();   
+                  
              
                 let html = view.index('글 생성',list,content,control);
                 res.end(html);
@@ -57,8 +59,9 @@ const template =require('./view/templete')
                // console.log(param.subject, param.description);
                let filepath = 'data/'+param.subject + '.txt';
                fs.writeFile(filepath, param.description,error=>{
-                    res.writeHead(302, 
-                     {'Location':`/?id=${param.subject}`});
+                    let encoded = encodeURI(`/?id=${param.subject}`);
+                    console.log(encoded);
+                    res.writeHead(302,  {'Location': encoded});
                      res.end();
                });
        
@@ -68,11 +71,12 @@ const template =require('./view/templete')
         case '/delete':
                 fs.readdir('data',function(error, filelist){                    
                     let list =template.listGen(filelist);
+                    let content= template.deleteForm(query.id); 
                     let control = template.buttonGen();               
-                    let content= template.deleteForm(query.id);      
+                         
                     let html = view.index('글 삭제',list,content,control);
                     res.end(html);
-                    console.log(content);
+                    //console.log(content);
                                   
                 });
                 break;
@@ -88,9 +92,8 @@ const template =require('./view/templete')
                 let filepath = 'data/'+param.subject + '.txt';               
                 console.log(filepath);
                 fs.unlink(filepath, error=>{
-                    res.writeHead(302, 
-                        {'Location':'/'});
-                        res.end();
+                    res.writeHead(302,  {'Location':'/'});                       
+                    res.end();
                 });               
             });
             break;
@@ -102,7 +105,7 @@ const template =require('./view/templete')
                     let filename ='data/' + title + '.txt';
                     fs.readFile(filename,'utf8',(error,buffer) => {
                         let content = template.updateForm(title,buffer)
-                        let html = view.index(`${title}수정`,list,buffer,control);
+                        let html = view.index(`${title}수정`,list,content,control);
                         res.end(html);
                     })                                                                      
             });
@@ -119,7 +122,8 @@ const template =require('./view/templete')
                 // console.log(param.original, param.subject, param.description);
                 let filepath = 'data/'+param.original + '.txt';
                 fs.writeFile(filepath, param.description,error=>{
-                    if (param.original !== subject) {
+                    let encoded = encodeURI(`/?id=${param.subject}`);
+                    /* if (param.original !== subject) {
                             fs.rename(filepath, `data/${param.subject}.txt`, error => {
                                 res.writeHead(302, 
                                     {'Location':`/?id=${param.subject}`});
@@ -129,11 +133,17 @@ const template =require('./view/templete')
                         res.writeHead(302, 
                             {'Location':`/?id=${param.subject}`});
                             res.end();
+                    } */
+                    if (param.original !== param.subject) {
+                        fs.renameSync(filepath, `data/${param.subject}.txt`);
                     }
+                    res.writeHead(302, {'Location': encoded});
+                    res.end()
+                });
                   
                 });
         
-            });
+           
             break;
         
         default:
