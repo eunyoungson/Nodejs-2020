@@ -3,7 +3,7 @@ var fs = require('fs'); //fs라는 모듈을 fs라는 변수를 통해 사용할
 var url = require('url');  //url이라는 모듈을 url이란변수 통해 사용할것이다
 
 
-let app =http.createServer(function(req,res){
+let app =http.createServer(function(request,response){
     var _url = request.url;
     var queryData = url.parse(request.url, true).query;
     console.log(url.parse(_url,true));

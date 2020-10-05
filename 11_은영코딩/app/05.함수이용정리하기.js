@@ -32,7 +32,7 @@ function templatelist(filelist) {
     return list;
 }
 
-let app =http.createServer(function(req,res){
+let app =http.createServer(function(request,response){
     var _url = request.url;
     var queryData = url.parse(_url, true).query;
     console.log(url.parse(_url,true));
