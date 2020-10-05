@@ -3,7 +3,7 @@ const url = require('url');
 const qs = require('querystring');
 const fs = require('fs');
 const view = require('./view/index');
-const template =require('./view/templete')
+const template =require('./view/template')
 
  http.createServer((req,res) =>{  
     let pathname = url.parse(req.url).pathname;
@@ -26,7 +26,7 @@ const template =require('./view/templete')
                     let list =template.listGen(filelist);
                     let title = query.id ;     
                     let control = template.buttonGen(title);               
-                    let filename ='data/' + title + '.txt';
+                    let filepath ='data/' + title + '.txt';
                     fs.readFile(filepath,'utf8',(error,buffer) => {
                         let html = view.index(title,list,buffer,control);
                         res.end(html);
